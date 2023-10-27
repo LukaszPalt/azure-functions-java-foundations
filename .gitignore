@@ -1,7 +1,4 @@
 /.idea/
-/target/
-/azure-functions-java-foundations-private.iml
-/azure-functions-sdk/azure-functions-sdk.iml
-/spring-cloud-function/spring-cloud-function.iml
-/azure-functions-sdk/local.settings.json
-/spring-cloud-function/src/main/resources/local.settings.json
+**/target/
+**/*.iml
+**/local.settings.json
