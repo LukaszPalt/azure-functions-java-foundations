@@ -3,6 +3,7 @@ package com.udemy;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
+import com.microsoft.azure.functions.OutputBinding;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,14 +18,19 @@ import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class InternationalisationFunctionTest {
 
     @Mock
     private HttpRequestMessage<String> requestMessage;
+    @Mock
+    private OutputBinding<String> outputBinding;
 
     private InternationalisationFunction function;
 
@@ -44,12 +50,13 @@ class InternationalisationFunctionTest {
         }).when(requestMessage).createResponseBuilder(any(HttpStatus.class));
 
         // Act
-        final HttpResponseMessage response = function.greet(requestMessage);
+        final HttpResponseMessage response = function.greet(requestMessage, outputBinding);
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatus());
         assertEquals(expectedMessage, response.getBody());
         assertEquals("text/plain", response.getHeader("Content-Type"));
+        verify(outputBinding, times(1)).setValue(anyString());
     }
 
     private static Stream<Arguments> testParameters() {
