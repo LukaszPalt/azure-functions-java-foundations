@@ -8,13 +8,20 @@
     <packaging>jar</packaging>
 
     <properties>
+        <!-- Build configuration -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <release>17</release>
-        <azure.functions.maven.plugin.version>1.24.0</azure.functions.maven.plugin.version>
+        <!-- Production dependencies -->
         <azure.functions.java.library.version>2.2.0</azure.functions.java.library.version>
-        <functionAppName>azure-functions-java-foundations-20230704212555255</functionAppName>
+        <jackson-databind.version>2.15.3</jackson-databind.version>
+        <!-- Test dependencies -->
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
         <mockito.version>5.3.1</mockito.version>
+        <assertj-core.version>3.24.2</assertj-core.version>
+        <!-- Versions of the plugins -->
+        <azure.functions.maven.plugin.version>1.24.0</azure.functions.maven.plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
     </properties>
 
     <dependencies>
@@ -22,6 +29,11 @@
             <groupId>com.microsoft.azure.functions</groupId>
             <artifactId>azure-functions-java-library</artifactId>
             <version>${azure.functions.java.library.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
         </dependency>
         <!-- Test -->
         <dependency>
@@ -46,6 +58,12 @@
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
             <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj-core.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -1,2 +1,4 @@
-GET http://localhost:56253/api/greet
-Accept-Language: es
+POST http://localhost:56253/api/QuestionValidationFunction
+Accept-Language: en
+
+{"question": "How will the ongoing AI revolution affect the financial industry?"}
