@@ -2,3 +2,9 @@ POST http://localhost:56253/api/QuestionValidationFunction
 Accept-Language: en
 
 {"question": "How will the ongoing AI revolution affect the financial industry?"}
+
+###
+POST https://azure-functions-sdk.azurewebsites.net/api/QuestionValidationFunction?code={api-code}
+Accept-Language: en
+
+{"question": "How will the ongoing AI revolution affect the financial industry?"}
