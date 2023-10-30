@@ -11,6 +11,12 @@
         <!-- Build configuration -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <release>17</release>
+        <!-- Function App configuration -->
+        <app-name>azure-functions-sdk</app-name>
+        <resource-group>azure-functions-sdk-rg</resource-group>
+        <app-service-plan-name>azure-functions-sdk-sp</app-service-plan-name>
+        <pricing-tier>consumption</pricing-tier>
+        <region>norwayeast</region>
         <!-- Version of the dependencies -->
         <azure.functions.java.library.version>2.2.0</azure.functions.java.library.version>
         <jackson-databind.version>2.15.2</jackson-databind.version>
@@ -84,12 +90,13 @@
                 <artifactId>azure-functions-maven-plugin</artifactId>
                 <version>${azure.functions.maven.plugin.version}</version>
                 <configuration>
-                    <appName>${functionAppName}</appName>
-                    <resourceGroup>java-functions-group</resourceGroup>
-                    <appServicePlanName>java-functions-app-service-plan</appServicePlanName>
-                    <region>westus</region>
+                    <appName>${app-name}</appName>
+                    <resourceGroup>${resource-group}</resourceGroup>
+                    <appServicePlanName>${app-service-plan-name}</appServicePlanName>
+                    <pricingTier>${pricing-tier}</pricingTier>
+                    <region>${region}</region>
                     <runtime>
-                        <os>docker</os>
+                        <os>linux</os>
                         <javaVersion>${release}</javaVersion>
                     </runtime>
                     <appSettings>

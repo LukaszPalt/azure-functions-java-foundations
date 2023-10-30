@@ -1,2 +1,9 @@
 GET http://localhost:56253/api/greet
 Accept-Language: es
+
+###
+POST https://azure-functions-sdk.azurewebsites.net/api/QuestionValidationFunction?
+    code=
+Accept-Language: en
+
+{"question": "How will the ongoing AI revolution affect the financial industry?"}
