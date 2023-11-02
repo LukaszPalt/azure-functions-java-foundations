@@ -12,7 +12,7 @@ public class PromptEngineeringFunction {
     public void sendPrompt(
             @QueueTrigger(
                     name = "question",
-                    queueName = "questions-queue",
+                    queueName = "question-queue",
                     connection = "AzureWebJobsStorage")
             String question,
             @QueueOutput(
