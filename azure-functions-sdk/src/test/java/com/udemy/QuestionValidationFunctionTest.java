@@ -1,5 +1,6 @@
 package com.udemy;
 
+import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.HttpRequestMessage;
 import com.microsoft.azure.functions.HttpResponseMessage;
 import com.microsoft.azure.functions.HttpStatus;
@@ -15,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.stubbing.Answer;
 
 import java.util.Map;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -23,6 +25,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class QuestionValidationFunctionTest {
@@ -31,6 +34,11 @@ class QuestionValidationFunctionTest {
     private HttpRequestMessage<String> questionRequest;
     @Mock
     OutputBinding<String> outputBinding;
+    @Mock
+    ExecutionContext executionContext;
+    @Mock
+    Logger logger;
+
     private QuestionValidationFunction function;
 
     @BeforeEach
@@ -39,6 +47,8 @@ class QuestionValidationFunctionTest {
             HttpStatus status = (HttpStatus) invocation.getArguments()[0];
             return new HttpResponseMessageMock.HttpResponseMessageBuilderMock().status(status);
         }).when(questionRequest).createResponseBuilder(any(HttpStatus.class));
+
+        when(executionContext.getLogger()).thenReturn(logger);
 
         function = new QuestionValidationFunction();
     }
@@ -56,7 +66,7 @@ class QuestionValidationFunctionTest {
         }
 
         // Act
-        var response = function.validate(questionRequest, outputBinding);
+        var response = function.validate(questionRequest, outputBinding, executionContext);
 
         // Assert
         assertEquals(expectedStatus, response.getStatus());
@@ -72,7 +82,7 @@ class QuestionValidationFunctionTest {
                 .when(questionRequest).getBody();
 
         // Act
-        function.validate(questionRequest, outputBinding);
+        function.validate(questionRequest, outputBinding, executionContext);
 
         // Assert
         verify(outputBinding, times(1)).setValue("How will the ongoing AI revolution affect " +

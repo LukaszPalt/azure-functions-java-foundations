@@ -1,5 +1,6 @@
 package com.udemy;
 
+import com.microsoft.azure.functions.ExecutionContext;
 import com.microsoft.azure.functions.OutputBinding;
 import com.microsoft.azure.functions.annotation.FunctionName;
 import com.microsoft.azure.functions.annotation.QueueOutput;
@@ -18,8 +19,10 @@ public class PromptEngineeringFunction {
                     name = "promptQueue",
                     queueName = "prompt-queue",
                     connection = "AzureWebJobsStorage")
-            OutputBinding<String> promptQueue) {
+            OutputBinding<String> promptQueue,
+            ExecutionContext executionContext) {
         var prompt = Prompt.from(question).create();
         promptQueue.setValue(prompt);
+        executionContext.getLogger().info(() -> "Sent prompt [" + prompt + "] to the AI model.");
     }
 }
